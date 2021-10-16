@@ -13,8 +13,9 @@ import gtts
 from playsound import playsound
 #from ecapture import ecapture as ec
 import wolframalpha
+import random
 
-
+l = ['https://www.youtube.com/watch?v=iggmiF7DNoM&list=RDiggmiF7DNoM&start_radio=1', 'https://www.youtube.com/watch?v=ZzVzYVk6Euo&list=RDZzVzYVk6Euo&start_radio=1', 'https://www.youtube.com/watch?v=vX9msKu75qs&list=RDvX9msKu75qs&start_radio=1']
 #nachalo
 def speak(text):
     engine.say(text)
@@ -88,7 +89,9 @@ if __name__=='__main__':
             print("da taka e mnogo ste umen,  sir")
             break
 
-
+        if "нещо" in statement:
+            webbrowser.open_new_tab((random.choice(l)))
+           
 
             #wikipediata
         if 'уикипедия' in statement:
