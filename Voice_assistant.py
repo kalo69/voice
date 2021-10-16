@@ -9,6 +9,8 @@ import requests
 import speech_recognition as sr
 import wikipedia
 from win10toast import ToastNotifier
+import gtts
+from playsound import playsound
 #from ecapture import ecapture as ec
 import wolframalpha
 
@@ -18,11 +20,9 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-print('Zarejdam...')
-
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
-engine.setProperty('voice','voices[0].id')
+engine.setProperty('voice', voices[1].id)
 
 
 def speak(text):
@@ -33,8 +33,7 @@ def speak(text):
 def wishMe():
     hour=datetime.datetime.now().hour
     if hour>=0 and hour<12:
-        speak("Dobro Utro")
-        print("zdr kote")
+        playsound("wav/zdr.wav")
     elif hour>=12 and hour<18:
         speak("Добър Следобяд")
         print("Hello,Good Afternoon")
@@ -55,11 +54,14 @@ def takeCommand():
             print(f"user said:{statement}\n")
 
         except Exception as e:
-            speak("Mojesh li da povtorite")
+            playsound("wav/povtorite.wav")
             return "None"
         return statement
 
-speak("Zarejdam")
+playsound("wav/zarejdam.wav")
+print("zarejdam...")
+time.sleep(1)
+
 wishMe()
 
 #main
@@ -76,13 +78,13 @@ if __name__=='__main__':
             #kazva chao na shefcheto
 
         if "чао" in statement or "млъкни" in statement or "спри се" in statement:
-            speak('your personal assistant Maika ti is shutting down,Good bye')
+            playsound("wav/chal.wav")
             print('your personal assistant G-one is shutting down,Good bye')
             break
 
         
         if "много съм умен" in statement or "айкюто върти" in statement:
-            speak("da,  taka,   e,    mnogo,    ste,    umen, sir,  ")
+            playsound("wav/iq.wav")
             print("da taka e mnogo ste umen,  sir")
             break
 
@@ -90,40 +92,40 @@ if __name__=='__main__':
 
             #wikipediata
         if 'уикипедия' in statement:
-            speak('Searching Wikipedia...')
+            playsound("wav/tursq wikipedia.wav")
             statement =statement.replace("wikipedia", "")
             results = wikipedia.summary(statement, sentences=3)
-            speak("According to Wikipedia")
+            playsound("wav/spored-wikipedia.wav")
             print(results)
             speak(results)
 
             #youtube
         elif 'отвори ютуб' in statement:
             webbrowser.open_new_tab("https://www.youtube.com")
-            speak("ютуб е отворен")
+            playsound("wav/yt.wav")
             time.sleep(5)
 
         elif 'пусни ми новините' in statement:
             webbrowser.open_new_tab("https://www.youtube.com/watch?v=RXPGslO_fxo")
-            speak("puskam,  vi,  novnite,  sir")
+            playsound("wav/novinite.wav")
             time.sleep(5)
 
         #google
         elif 'Отвори google' in statement:
             webbrowser.open_new_tab("https://www.google.com")
-            speak("Google chrome is open now")
+            playsound("wav/google.wav")
             time.sleep(5)
 
         #gmail
         elif 'отвори gmail' in statement:
             webbrowser.open_new_tab("gmail.com")
-            speak("Google Mail open now")
+            playsound("wav/gmail.wav")
             time.sleep(5)
         #vreme (meteo)
-        elif "кажи ми времето" in statement:
+        elif "какво е времето" in statement:
             api_key="8ef61edcf1c576d65d836254e11ea420"
             base_url="https://api.openweathermap.org/data/2.5/weather?"
-            speak("Kakwo  e  imeto  na grada  vi, sir")
+            playsound("wav/grada.wav")
             city_name=takeCommand()
             complete_url=base_url+"appid="+api_key+"&q="+city_name
             response = requests.get(complete_url)
@@ -184,7 +186,12 @@ if __name__=='__main__':
             statement = statement.replace("search", "")
             webbrowser.open_new_tab(statement)
             time.sleep(20)
-
+        
+        elif 'пускай микса' in statement or "кондио микс" in statement or "микс" in statement:
+            webbrowser.open_new_tab("https://www.youtube.com/watch?v=Kih7h64RJF8&list=RDKih7h64RJF8&start_radio=1")
+            playsound("wav/miksa.wav")
+            time.sleep(2000)
+        
         #pitame
         elif 'питай' in statement:
             speak('I can answer to computational and geographical questions and what question do you want to ask now')
@@ -201,4 +208,8 @@ if __name__=='__main__':
             speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
             subprocess.call(["shutdown", "/l"])
 
+        elif "пусни ми музика" in statement or "пусни ми музичка" in statement or "музика" in statement:
+                playsound('kondo.wav')
+                
 time.sleep(3)
+
