@@ -23,7 +23,7 @@ def speak(text):
 
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
+engine.setProperty('voice', voices[9].id)
 
 
 def speak(text):
@@ -34,12 +34,12 @@ def speak(text):
 def wishMe():
     hour=datetime.datetime.now().hour
     if hour>=0 and hour<12:
-        playsound("wav/zdr.wav")
+       speak("Добро утро, сър. С какво мога да ви помогна?")
     elif hour>=12 and hour<18:
-        speak("Добър Следобяд")
+        speak("Добър Следобяд, сър С какво мога да ви помогна?")
         print("Hello,Good Afternoon")
     else:
-        speak("Hello,Good Evening")
+        speak("Добър вечер, сър  С какво мога да ви помогна?")
         print("Hello,Good Evening")
 
 #razpoznavane
@@ -59,7 +59,7 @@ def takeCommand():
             return "None"
         return statement
 
-playsound("wav/zarejdam.wav")
+speak("Зареждам...")
 print("zarejdam...")
 time.sleep(1)
 
@@ -79,44 +79,44 @@ if __name__=='__main__':
             #kazva chao na shefcheto
 
         if "чао" in statement or "млъкни" in statement or "спри се" in statement:
-            playsound("wav/chal.wav")
+            speak("Довиждане, сър")
             print('your personal assistant G-one is shutting down,Good bye')
             break
 
         
         if "много съм умен" in statement or "айкюто върти" in statement:
-            playsound("wav/iq.wav")
+            speak("Да така е")
             print("da taka e mnogo ste umen,  sir")
-            break
+            
 
         if "нещо" in statement:
             webbrowser.open_new_tab((random.choice(l)))
            
 
             #wikipediata
-        if 'уикипедия' in statement:
-            playsound("wav/tursq wikipedia.wav")
-            statement =statement.replace("wikipedia", "")
+        if 'потърси в уикипедия' in statement:
+            speak("търся в уикипедия")
+            statement =statement.replace("уикипедия", "Уикипедия")
             results = wikipedia.summary(statement, sentences=3)
-            playsound("wav/spored-wikipedia.wav")
+            speak("според уикипедия")
             print(results)
             speak(results)
 
             #youtube
         elif 'отвори ютуб' in statement:
             webbrowser.open_new_tab("https://www.youtube.com")
-            playsound("wav/yt.wav")
+            speak("отварям ютуб,сър")
             time.sleep(5)
 
         elif 'пусни ми новините' in statement:
             webbrowser.open_new_tab("https://www.youtube.com/watch?v=RXPGslO_fxo")
-            playsound("wav/novinite.wav")
+            speak("отварям Ви новините, сър")
             time.sleep(5)
 
         #google
         elif 'Отвори google' in statement:
             webbrowser.open_new_tab("https://www.google.com")
-            playsound("wav/google.wav")
+            speak("отварям гугъл, сър")
             time.sleep(5)
 
         #gmail
@@ -125,10 +125,10 @@ if __name__=='__main__':
             playsound("wav/gmail.wav")
             time.sleep(5)
         #vreme (meteo)
-        elif "какво е времето" in statement:
+        #elif "какво е времето" in statement or "кажи ми времето" in statement or "времето" in statement or "време":
             api_key="8ef61edcf1c576d65d836254e11ea420"
             base_url="https://api.openweathermap.org/data/2.5/weather?"
-            playsound("wav/grada.wav")
+            speak("Каков е името на града ви, сър ?")
             city_name=takeCommand()
             complete_url=base_url+"appid="+api_key+"&q="+city_name
             response = requests.get(complete_url)
@@ -139,11 +139,11 @@ if __name__=='__main__':
                 current_humidiy = y["humidity"]
                 z = x["weather"]
                 weather_description = z[0]["description"]
-                speak(" Temperature in kelvin unit is " +
+                speak(" Температурата в Келвин е " +
                       str(current_temperature) +
-                      "\n humidity in percentage is " +
+                      "\n Влажността в проценти е " +
                       str(current_humidiy) +
-                      "\n description  " +
+                      "\n Описание  " +
                       str(weather_description))
                 print(" Temperature in kelvin unit = " +
                       str(current_temperature) +
@@ -158,23 +158,23 @@ if __name__=='__main__':
 
         #vreme
 
-        elif 'Време' in statement:
+        elif 'час' in statement:
             strTime=datetime.datetime.now().strftime("%H:%M:%S")
-            speak(f"the time is {strTime}")
+            speak(f"часът е {strTime}")
         #koi si ti
         elif 'who are you' in statement or 'what can you do' in statement:
-            speak('Az sum bashtati')
+            speak('Аз съм Кондьо')
 
         #koi ta naprai ma
-        elif "Кой те е направил" in statement or "who created you" in statement or "who discovered you" in statement:
-            speak("I was built by Kaloyan")
+        elif "кой те е направил" in statement or "кой те е създал" in statement or "who discovered you" in statement:
+            speak("майка ти хаха")
             print("I was built by Kaloyan")
 
         elif "open stackoverflow" in statement:
             webbrowser.open_new_tab("https://stackoverflow.com/login")
             speak("Here is stackoverflow")
 
-        elif 'news' in statement:
+        elif 'новини' in statement:
             news = webbrowser.open_new_tab("https://timesofindia.indiatimes.com/home/headlines")
             speak('Here are some headlines from the Times of India,Happy reading')
             time.sleep(6)
@@ -192,12 +192,12 @@ if __name__=='__main__':
         
         elif 'пускай микса' in statement or "кондио микс" in statement or "микс" in statement:
             webbrowser.open_new_tab("https://www.youtube.com/watch?v=Kih7h64RJF8&list=RDKih7h64RJF8&start_radio=1")
-            playsound("wav/miksa.wav")
-            time.sleep(2000)
+            speak("пускам микса шефеееее ")
+            time.sleep(5)
         
         #pitame
         elif 'питай' in statement:
-            speak('I can answer to computational and geographical questions and what question do you want to ask now')
+            speak('Мога да отговоря на изчислителни и географски въпроси и какъв въпрос искате да зададете сега')
             question=takeCommand()
             app_id="R2K75H-7ELALHR35X"
             client = wolframalpha.Client('R2K75H-7ELALHR35X')
@@ -208,7 +208,7 @@ if __name__=='__main__':
 
         #log off
         elif "заминавай" in statement or "sign out" in statement:
-            speak("Ok , your pc will log off in 10 sec make sure you exit from all applications")
+            speak("Добре, вашият компютър ще излезе след 10 секунди, уверете се, че излизате от всички приложения ")
             subprocess.call(["shutdown", "/l"])
 
         elif "пусни ми музика" in statement or "пусни ми музичка" in statement or "музика" in statement:
