@@ -23,7 +23,7 @@ note: if you have problem with pyaudio (most likely) install an older version
 </div>
 
 <h1 style="text-align:center">------BG------</h1>
-<h2>if you want your tts speak in bulgarian do this:</h2>
+<h2>if you want your tts to speak in bulgarian do this:</h2>
 
 install TTS.Voices.MegaPack.exe
 from the installer select VE_Bulgarian_Daria_22kHz
