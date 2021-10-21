@@ -28,7 +28,7 @@ note: if you have problem with pyaudio (most likely) install an older version
 install TTS.Voices.MegaPack.exe
 from the installer select VE_Bulgarian_Daria_22kHz
 
-then run this code in a test.py file
+then run this code in a test.py file (i have included it in the gievn files)
 
 ####################################################
 
