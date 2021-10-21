@@ -14,16 +14,28 @@ from playsound import playsound
 #from ecapture import ecapture as ec
 import wolframalpha
 import random
+import pywhatkit
 from config import music
 from config import how
 from config import howo
 from config import kondio
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
 #nachalo
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
+
+
+def talk(text):
+    engine.say(text)
+    engine.runAndWait()
+
+
+listener = sr.Recognizer()
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
 engine.setProperty('voice', voices[9].id)
@@ -32,6 +44,9 @@ engine.setProperty('voice', voices[9].id)
 def speak(text):
     engine.say(text)
     engine.runAndWait()
+
+
+
 
 #pozdravqva shefcheto spored chasa
 def wishMe():
@@ -68,6 +83,9 @@ time.sleep(1)
 
 wishMe()
 
+
+
+
 #main
 
 if __name__=='__main__':
@@ -78,8 +96,9 @@ if __name__=='__main__':
         statement = takeCommand().lower()
         if statement==0:
             continue
-
             #kazva chao na shefcheto
+
+
 
         if "чао" in statement or "млъкни" in statement or "спри се" in statement:
             speak("Довиждане, сър")
@@ -106,7 +125,28 @@ if __name__=='__main__':
             speak(results)
             continue
 
+        elif 'софия' in statement:
+            playsound('giga.wav')    
+
+        elif 'пусни' in statement:
+            song = statement.replace('пусни', '')
+            talk('пускам ' + song)
+            pywhatkit.playonyt(song)
+            time.sleep(5)
             #youtube
+
+        elif 'кажи че' in statement:
+            kaji = statement.replace('кажи че', '')
+            da = 'да, така е, Янко е гей'
+            print(da)
+            speak(da)
+
+        elif 'кой е' in statement:
+            person = statement.replace('кой е', '')
+            info = wikipedia.summary(person, 1)
+            print(info)
+            speak(info)
+
         elif 'отвори ютуб' in statement:
             webbrowser.open_new_tab("https://www.youtube.com")
             speak("отварям ютуб,сър")
@@ -158,7 +198,7 @@ if __name__=='__main__':
             speak('Радвам се да го чуя')
             speak('С какво мога да Ви помогна, сър ?')
 
-        elif "кой те е направил" in statement or "кой те е създал" in statement or "кой баща те е направил" in statement or 'кой баща те направил':
+        elif "кой те е направил" in statement or "кой те е създал" in statement or "кой баща те е направил" in statement or 'кой баща те направил' in statement:
             speak("майка ти хаха")
             print("I was built by Kaloyan")
 
